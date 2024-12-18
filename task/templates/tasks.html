@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center">LISTA DE PROYECTOS, INFORMES, ETC</h1>
+
+<ul>
+    {% for task in tasks %}
+    <li class="task-item">
+        <a href="{% url 'task_detail' task.id %}" class="task-link">
+            <!-- Título del proyecto con estilo futurista como botón -->
+            <button class="task-title-button">
+                {% if task.important %}
+                    <strong>{{task.title}}</strong>
+                {% else %}
+                    {{task.title}}
+                {% endif %}
+            </button>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- Estilos -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    h1 {
+        color: #fff;
+        margin-bottom: 40px;
+        font-size: 2em;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .task-item {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .task-link {
+        text-decoration: none;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Estilo del botón futurista para el título */
+    .task-title-button {
+        width: 80%; /* Ajusta el ancho del botón */
+        max-width: 400px; /* Añadir un max-width para evitar que se haga demasiado grande */
+        height: 50px;
+        border-radius: 50px;
+        background: linear-gradient(45deg, #009970, #007a57); /* Verde degradado */
+        border: none;
+        outline: none;
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #fff;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        padding: 0 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .task-title-button:hover {
+        background: linear-gradient(45deg, #007a57, #009970); /* Invertir el degradado en hover */
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+        transform: scale(1.05); /* Efecto de zoom en hover */
+    }
+
+    .task-title-button:active {
+        transform: scale(1.1); /* Aumentar el tamaño al hacer clic */
+    }
+
+    .task-description,
+    .task-author,
+    .task-date {
+        color: #ccc;
+        font-size: 1em;
+        margin-top: 5px;
+    }
+
+    /* Estilo para los botones de tareas y enlaces */
+    .task-title-button {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    /* Estilo para el enlace de tarea */
+    .task-link {
+        width: 100%;
+        text-decoration: none;
+    }
+
+    /* Diseño responsivo para móviles */
+    @media (max-width: 768px) {
+        .task-item {
+            margin-bottom: 15px;
+        }
+
+        .task-title-button {
+            font-size: 1em;
+            padding: 12px 24px;
+            width: 90%; /* Aumentar el ancho en móviles */
+        }
+
+        .task-description,
+        .task-author,
+        .task-date {
+            font-size: 0.9em;
+        }
+    }
+</style>
+
+{% endblock %}

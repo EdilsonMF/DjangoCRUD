@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Editar Categoría: {{ category.categoria }}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <!-- Aquí renderizamos el formulario con los campos definidos en CategoryForm -->
+    {{ form.as_p }}  <!-- Esto generará los campos 'categoria' y 'subcategoria' con los placeholders que definiste -->
+
+    <!-- Botón para guardar los cambios -->
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+</form>
+
+<!-- Enlace para volver a los detalles de la categoría -->
+<a href="{% url 'category_detail' category.id %}" class="btn btn-secondary">Volver a los detalles</a>
+{% endblock %}

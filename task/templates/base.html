@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django CRUD Application</title>
+    
+    <!-- Cargar la etiqueta static de Django -->
+    {% load static %}
+
+    <!-- Importando Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <!-- Estilos CSS Integrados -->
+    <style>
+        /* Fondo de pantalla */
+        body {
+            background-image: url("{% static 'images/fono.jpg' %}") ; /* Cambia 'background.jpg' por el nombre de tu imagen */
+            background-size: cover; /* Asegura que la imagen cubra todo el fondo */
+            background-position: center; /* Centra la imagen */
+            background-attachment: fixed; /* Hace que la imagen se quede fija al hacer scroll */
+            color: #333; /* Establece el color de texto para que sea visible sobre el fondo */
+            margin: 0;
+            padding-top: 120px; /* Espacio para la barra de navegación */
+        }
+
+        /* Barra de navegación */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.3);
+            height: 80px;
+            margin: 20px;
+            border-radius: 16px;
+            padding: 0.5rem;
+            position: fixed; /* Para mantener la barra de navegación fija */
+            width: 100%;
+            z-index: 10; /* Asegura que la navbar esté por encima del contenido */
+        }
+        .nav-link {
+            color: #fff; /* Color blanco para los enlaces */
+        }
+
+        .nav-link:hover {
+            color: #00b383 !important; /* Verde claro al pasar el cursor */
+            text-decoration: none; /* Elimina el subrayado del enlace */
+        }
+
+        .nav-link.active {
+            color: #00b383 !important; /* Asegura que el enlace activo también tenga el color deseado */
+        }
+
+        .navbar-brand {
+            font-weight: 500;
+            color: #009970;
+            font-size: 24px;
+            transition: 0.3s color;
+        }
+
+        /* Contenedor de contenido */
+        .content-wrapper {
+            position: relative;
+            z-index: 1; /* Asegura que el contenido esté sobre la imagen */
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente para mejorar la visibilidad del texto */
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 80px; /* Ajusta la posición para que no se superponga con la navbar */
+        }
+
+        /* Estilo para los títulos */
+        h1, h2 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra para mejorar la legibilidad del texto */
+            color: white; /* Asegura que el texto sea blanco */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .btn {
+            margin: 10px;
+        }
+
+        .card-body {
+            background-color: rgba(255, 255, 255, 0.3); /* Fondo blanco con transparencia */
+            border-radius: 10px; /* Redondear las esquinas si lo deseas */
+            color: #fff; /* Asegura que el texto dentro de la tarjeta sea blanco */
+            padding: 20px; /* Asegura que haya espacio adecuado dentro de la tarjeta */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">CIS Web</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Home</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'tasks' %}" class="nav-link">Proyectos</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="/tasks/create/" class="nav-link">Crear Proyecto</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'categories' %}" class="nav-link">Categorias</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'create_category' %}" class="nav-link">Crear Categoria</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="/signup" class="nav-link">Signup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/signin" class="nav-link">Signin</a>
+                    </li>
+                    
+                    
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido de la página -->
+    <div class="content-wrapper">
+        {% block content %}
+        <!-- Aquí irá el contenido de la página -->
+        <h1 class="display-1 text-center">  DJANGO APP </h1>
+        <p>Bienvenido a nuestra aplicación Django. Aquí puedes gestionar tus proyectos de manera sencilla.</p>
+
+        <div class="text-center">
+            <a class="btn btn-secondary" href="/signin/">Signin</a>
+            <a class="btn btn-dark" href="/signup/">Signup</a>
+        </div>
+        {% endblock %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

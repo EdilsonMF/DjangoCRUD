@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ category.categoria }}</h1>
+<p class="subcategoria-text">{{ category.subcategoria }}</p>
+
+<!-- Botón para editar la categoría -->
+<a href="{% url 'edit_category' category.id %}" class="btn btn-warning">Editar</a>
+
+<!-- Formulario para eliminar la categoría -->
+<form action="{% url 'delete_category' category.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar Categoría</button>
+</form>
+
+<a href="{% url 'categories_list' %}" class="btn btn-secondary">Volver a la lista</a>
+{% endblock %}

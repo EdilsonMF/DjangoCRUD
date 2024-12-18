@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center">Lista de Categorías</h1>
+
+<ul>
+    {% for category in categories %}
+        <li class="category-item">
+            <!-- Enlace a los detalles de la categoría -->
+            <a href="{% url 'category_detail' category.id %}" class="category-link">
+                <button class="category-button">
+                    {{ category.categoria }} 
+                    {% if category.subcategoria %}
+                        - {{ category.subcategoria }}
+                    {% endif %}
+                </button>
+            </a>
+
+            <!-- Formulario para eliminar la categoría -->
+            <form action="{% url 'delete_category' category.id %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </li>
+    {% empty %}
+        <li>No hay categorías disponibles.</li>
+    {% endfor %}
+</ul>
+
+<!-- Estilos -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    h1 {
+        color: #fff;
+        margin-bottom: 40px;
+        font-size: 2em;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .category-item {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .category-link {
+        text-decoration: none;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Estilo futurista para el botón de la categoría */
+    .category-button {
+        width: 80%; /* Ajusta el ancho del botón */
+        max-width: 400px; /* Añadir un max-width para evitar que se haga demasiado grande */
+        height: 50px;
+        border-radius: 50px;
+        background: linear-gradient(45deg, #009970, #007a57); /* Verde degradado */
+        border: none;
+        outline: none;
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #fff;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        padding: 0 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .category-button:hover {
+        background: linear-gradient(45deg, #007a57, #009970); /* Invertir el degradado en hover */
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+        transform: scale(1.05); /* Efecto de zoom en hover */
+    }
+
+    .category-button:active {
+        transform: scale(1.1); /* Aumentar el tamaño al hacer clic */
+    }
+
+    /* Estilo para los enlaces de categoría */
+    .category-link {
+        width: 100%;
+        text-decoration: none;
+    }
+
+    /* Diseño responsivo para móviles */
+    @media (max-width: 768px) {
+        .category-item {
+            margin-bottom: 15px;
+        }
+
+        .category-button {
+            font-size: 1em;
+            padding: 12px 24px;
+            width: 90%; /* Aumentar el ancho en móviles */
+        }
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container">
+    <div class="row">
+        <section class="col-md-4 offset-md-4 mt-5">
+            <div class="form-box">
+                <form action="/signin/" method="POST">
+                    <h2 class="text-center">SIGNIN</h2>
+
+                    {{ error }}
+
+                    {% csrf_token %}
+                    
+                    <!-- Campo de Username -->
+                    <div class="inputbox">
+                        <input type="text" name="username" id="username" required>
+                        <label for="username">Username</label>
+                    </div>
+
+                    <!-- Campo de Password -->
+                    <div class="inputbox">
+                        <input type="password" name="password" id="password" required>
+                        <label for="password">Password</label>
+                    </div>
+                    
+                    <!-- Botón de Submit -->
+                    <button type="submit">Signin</button>
+
+                    <!-- Enlace de registro -->
+                    <div class="register">
+                        <p>Don't have an account? <a href="/signup/">Sign up</a></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- Estilos -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        background: url('background6.jpg') no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .form-box {
+        position: relative;
+        width: 400px;
+        height: auto; /* Ajuste automático para contenido */
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        backdrop-filter: blur(15px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 2em;
+        color: #fff;
+        text-align: center;
+    }
+
+    .inputbox {
+        position: relative;
+        margin: 30px 0;
+        width: 100%;
+        border-bottom: 2px solid #fff;
+    }
+
+    .inputbox label {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 1em;
+        pointer-events: none;
+        transition: 0.5s;
+    }
+
+    /* Efecto cuando el campo está enfocado o tiene un valor */
+    input:focus ~ label,
+    input:valid ~ label {
+        top: -5px;
+        font-size: 0.9em;
+        color: #009970; /* Verde */
+    }
+
+    .inputbox input {
+        width: 100%;
+        height: 50px;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 1em;
+        padding: 0 35px 0 5px;
+        color: #fff;
+    }
+
+    /* Estilo del botón de submit */
+    button {
+        width: 100%;
+        height: 40px;
+        border-radius: 40px;
+        background: #009970; /* Verde */
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+        color: #fff;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #007a57; /* Verde más oscuro */
+    }
+
+    /* Estilo para el enlace de registro */
+    .register {
+        font-size: 0.9em;
+        color: #fff;
+        text-align: center;
+        margin: 25px 0 10px;
+    }
+
+    .register p a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .register p a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container py5">
+    <section class="card card-body">
+        <h1 class="text-center" style="font-family: 'Roboto', sans-serif; font-size: 2.5rem; font-weight: 500; color: #009970;">
+            Plataforma de Publicación de Informes: Investigación, Extensión e Interacción Social de la CIS
+        </h1>
+        
+        <!-- Párrafo con estilo personalizado -->
+        <p class="styled-text">
+            Esta plataforma está diseñada para facilitar la publicación, gestión y difusión de los informes relacionados con las actividades de investigación, extensión e interacción social realizadas por la Carrera de Ingeniería de Sistemas (CIS). A través de esta herramienta digital, se busca promover la transparencia y accesibilidad de los proyectos académicos y sociales, fomentando el intercambio de conocimientos y experiencias entre los miembros de la comunidad universitaria y la sociedad en general.
+        </p>
+
+        <div class="text-center">
+            <a class="futuristic-btn" href="/signin/">Signin</a>
+            <a class="futuristic-btn" href="/signup/">Signup</a>
+        </div>
+    </section>
+</main>
+
+<!-- Estilos para el texto y botones -->
+<style>
+    /* Estilos para el párrafo */
+    .styled-text {
+        color: white; /* Mantener el color blanco */
+        font-size: 1.2rem; /* Ajuste del tamaño de fuente */
+        line-height: 1.6; /* Mejor espaciado entre líneas */
+        font-family: 'Roboto', sans-serif; /* Fuente de texto */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra sutil para mejorar la visibilidad */
+        padding: 15px; /* Espaciado alrededor del texto */
+        text-align: justify; /* Justificación del texto */
+        margin: 0 auto; /* Centrado */
+    }
+
+    /* Estilo Futurista para los botones */
+    .futuristic-btn {
+        position: relative;
+        display: inline-block;
+        padding: 15px 30px; /* Ajuste del padding para los botones */
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #b0e57c; /* Verde claro para el texto */
+        font-size: 1.2rem;
+        transition: 0.5s;
+        overflow: hidden;
+        margin-right: 70px;
+        border: 2px solid #b0e57c; /* Borde del botón en verde */
+        border-radius: 8px;
+        background-color: transparent; /* Fondo transparente */
+    }
+
+    /* Efecto hover en los botones */
+    .futuristic-btn:hover {
+        background-color: #b0e57c; /* Fondo verde claro al pasar el cursor */
+        color: #050801;
+        box-shadow: 0 0 5px #b0e57c,
+                    0 0 25px #b0e57c,
+                    0 0 50px #b0e57c,
+                    0 0 300px #b0e57c;
+        -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+    }
+
+    /* Animación de las líneas */
+    .futuristic-btn:before,
+    .futuristic-btn:after {
+        content: '';
+        position: absolute;
+        background: linear-gradient(90deg, transparent, #b0e57c); /* Líneas verdes */
+        width: 100%;
+        height: 1px;
+        animation: animate1 1s infinite;
+    }
+
+    .futuristic-btn:after {
+        top: 0;
+        left: 0;
+        animation-delay: 0.25s;
+    }
+
+    /* Animación para las líneas (superior, inferior, derecha e izquierda) */
+    @keyframes animate1 {
+        0% {
+            left: -100%;
+        }
+        100% {
+            left: 100%;
+        }
+    }
+
+    /* Añadir animación a las líneas de borde */
+    .futuristic-btn span:nth-child(1),
+    .futuristic-btn span:nth-child(2),
+    .futuristic-btn span:nth-child(3),
+    .futuristic-btn span:nth-child(4) {
+        position: absolute;
+        display: block;
+    }
+
+    /* Animación para la línea superior */
+    .futuristic-btn span:nth-child(1) {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #b0e57c); /* Línea superior verde */
+        animation: animate1 1s infinite;
+    }
+
+    /* Animación de la línea derecha */
+    .futuristic-btn span:nth-child(2) {
+        top: -100%;
+        right: 0;
+        width: 1px;
+        height: 100%;
+        background: linear-gradient(180deg, transparent, #b0e57c); /* Línea derecha verde */
+        animation: animate2 1s infinite;
+        animation-delay: 0.25s;
+    }
+
+    /* Animación de la línea inferior */
+    .futuristic-btn span:nth-child(3) {
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(270deg, transparent, #b0e57c); /* Línea inferior verde */
+        animation: animate3 1s infinite;
+        animation-delay: 0.5s;
+    }
+
+    /* Animación de la línea izquierda */
+    .futuristic-btn span:nth-child(4) {
+        bottom: -100%;
+        left: 0;
+        width: 1px;
+        height: 100%;
+        background: linear-gradient(360deg, transparent, #b0e57c); /* Línea izquierda verde */
+        animation: animate4 1s infinite;
+        animation-delay: 0.75s;
+    }
+
+    /* Animaciones de los bordes */
+    @keyframes animate1 {
+        0% {
+            left: -100%;
+        }
+        100% {
+            left: 100%;
+        }
+    }
+
+    @keyframes animate2 {
+        0% {
+            top: -100%;
+        }
+        100% {
+            top: 100%;
+        }
+    }
+
+    @keyframes animate3 {
+        0% {
+            right: -100%;
+        }
+        100% {
+            right: 100%;
+        }
+    }
+
+    @keyframes animate4 {
+        0% {
+            bottom: -100%;
+        }
+        100% {
+            bottom: 100%;
+        }
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container">
+    <div class="row">
+        <section class="col-md-6 offset-md-3 mt-5">
+            <div class="form-box">
+                <h2 class="text-center">Crear Proyecto</h2>
+
+                <!-- Mostrar mensaje de error si existe -->
+                {% if error %}
+                    <p class="alert alert-danger">{{ error }}</p>
+                {% endif %}
+
+                <form action="/tasks/create/" method="POST">
+                    {% csrf_token %}
+
+                    <!-- Título -->
+                    <div class="inputbox">
+                        <input type="text" name="title" id="id_title" value="{{ form.title.value }}" required>
+                        <label for="id_title">Título</label>
+                    </div>
+
+                    <!-- Autor (Selector de opciones) -->
+                    <div class="inputbox">
+                        <select name="author" id="id_author" required>
+                            <option value="">Selecciona un autor</option>
+                            {% for author in authors %}
+                                <option value="{{ author.id }}" {% if author.id == form.author.value %} selected {% endif %}>{{ author.name }}</option>
+                            {% endfor %}
+                            <!-- Si no se selecciona un autor, usamos el autor logueado por defecto -->
+                            <option value="{{ user.id }}" {% if user.id == form.author.value %} selected {% endif %}>{{ user.username }}</option>
+                        </select>
+                        <label for="id_author">Autor</label>
+                    </div>
+
+                    <!-- Categoría (Selector de opciones) -->
+                    <div class="inputbox">
+                        <select name="category" id="id_category" required>
+                            <option value="">Selecciona una categoría</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" {% if category.id == form.category.value %} selected {% endif %}>
+                                    {{ category.categoria }} 
+                                    {% if category.subcategoria %}
+                                        - {{ category.subcategoria }} 
+                                    {% endif %}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <label for="id_category">Categoría</label>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="inputbox">
+                        <textarea name="description" id="id_description" required>{{ form.description.value }}</textarea>
+                        <label for="id_description">Descripción</label>
+                    </div>
+
+                    <!-- Importante (Checkbox estilizado sin línea) -->
+                    <div class="checkbox-container">
+                        <input type="checkbox" name="important" id="id_important" {{ form.important.checked }}>
+                        <label for="id_important">Importante</label>
+                    </div>
+
+                    <!-- Borrador (Checkbox estilizado sin línea) -->
+                    <div class="checkbox-container">
+                        <input type="checkbox" name="borrador" id="id_borrador" {{ form.borrador.checked }}>
+                        <label for="id_borrador">Borrador</label>
+                    </div>
+
+                    <!-- Publicado (Checkbox estilizado sin línea) -->
+                    <div class="checkbox-container">
+                        <input type="checkbox" name="publicado" id="id_publicado" {{ form.publicado.checked }}>
+                        <label for="id_publicado">Publicado</label>
+                    </div>
+
+                    <!-- Botón de Guardar -->
+                    <button type="submit">Guardar</button>
+                </form>
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- Estilos -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        background: url('background6.jpg') no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .form-box {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        backdrop-filter: blur(15px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 2em;
+        color: #fff;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .inputbox {
+        position: relative;
+        margin: 20px 0;
+        width: 100%;
+        border-bottom: 2px solid #fff;
+    }
+
+    .inputbox label {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 1em;
+        pointer-events: none;
+        transition: 0.5s;
+    }
+
+    /* Efecto cuando el campo está enfocado o tiene un valor */
+    input:focus ~ label,
+    textarea:focus ~ label,
+    select:focus ~ label,
+    input:valid ~ label,
+    textarea:valid ~ label,
+    select:valid ~ label {
+        top: -5px;
+        font-size: 0.9em;
+        color: #009970; /* Verde */
+    }
+
+    .inputbox input,
+    .inputbox textarea,
+    .inputbox select {
+        width: 100%;
+        height: 50px;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 1em;
+        padding: 0 35px 0 5px;
+        color: #fff;
+    }
+
+    .inputbox textarea {
+        height: 100px;
+        padding: 10px;
+    }
+
+    /* Estilo para los checkboxes */
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+        margin-bottom: 15px; /* Separación entre los checkboxes */
+    }
+
+    .checkbox-container input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 10px;
+        accent-color: #009970; /* Color verde del checkbox */
+    }
+
+    .checkbox-container label {
+        color: #fff;
+        font-size: 1em;
+        cursor: pointer;
+    }
+
+    .checkbox-container input[type="checkbox"]:checked {
+        background-color: #009970; /* Verde cuando está marcado */
+        border-color: #009970;
+    }
+
+    /* Estilo del botón de submit */
+    button {
+        width: 100%;
+        height: 40px;
+        border-radius: 40px;
+        background: #009970; /* Verde */
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+        color: #fff;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #007a57; /* Verde más oscuro */
+    }
+</style>
+
+{% endblock %}
